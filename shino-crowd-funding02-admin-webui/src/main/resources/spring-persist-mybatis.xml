@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    加载jdbc。properties-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--    配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${dev.username}"/>
+        <property name="password" value="${dev.password}"/>
+        <property name="url" value="${dev.url}"/>
+        <property name="driverClassName" value="${dev.driver}"/>
+        <property name="maxWait" value="${dev.maxWait}"/>
+        <property name="initialSize" value="${dev.initialSize}"/>
+        <property name="maxActive" value="${dev.maxActive}"/>
+    </bean>
+
+    <!--    配置SqlSessionFactoryBean-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--        装配数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--        指定Mybatis全局配置文件位置-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--        设置类型别名所对应的包-->
+        <property name="typeAliasesPackage" value="com.shino.crowd.entity"/>
+    </bean>
+
+    <!--
+    配置mapper接口的扫描设置
+    由mybatis-spring提供，可以将指定包下所有的mapper接口创建动态代理
+    并将这些动态代理作为IOC容器的bean管理
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.shino.crowd.mapper"/>
+    </bean>
+</beans>

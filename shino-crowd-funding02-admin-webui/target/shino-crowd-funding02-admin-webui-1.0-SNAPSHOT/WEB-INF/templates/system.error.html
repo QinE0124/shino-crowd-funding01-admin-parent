@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keys" content="">
+    <meta name="author" content="">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{static/css/login.css}">
+    <script type="text/javascript" th:src="@{static/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{static/script/vue.js}"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var vue = new Vue({
+                el:"#demo01",
+                "data":{},
+                "methods":{
+                    "back":function () {
+                        //相当于浏览器的后退按钮
+                        window.history.back();
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div>
+                <a class="navbar-brand" href="index.html" style="font-size: 32px;">尚筹网-创意产品众筹平台</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container" id="demo01">
+
+    <h2 class="form-signin-heading" style="text-align: center;">
+        <i class="glyphicon glyphicon-log-in"></i> 尚筹网系统消息
+    </h2>
+
+    <h3 style="text-align: center;" th:text="${#request.exception.message}">{{request.exception.message}}</h3>
+    <button style="width: 150px;margin: 50px auto 0px auto;" class="btn btn-lg btn-success btn-block" v-on:click="back">点我返回上一步</button>
+</div>
+</body>
+</html>
